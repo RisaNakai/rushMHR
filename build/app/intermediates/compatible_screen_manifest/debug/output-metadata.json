@@ -4,7 +4,7 @@
     "type": "COMPATIBLE_SCREEN_MANIFEST",
     "kind": "Directory"
   },
-  "applicationId": "com.example.sumple2",
+  "applicationId": "com.rush_mhr.sumple2",
   "variantName": "debug",
   "elements": []
 }

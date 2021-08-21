@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1072841440254",
+    "project_id": "rush-mhr",
+    "storage_bucket": "rush-mhr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1072841440254:android:aa194c444b86688a0b5eaf",
+        "android_client_info": {
+          "package_name": "com.rush_mhr.sumple2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1072841440254-v613cf5i00p211c6cum8mcd4v09mdn9b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsQhzPsNvXbcv9GJ_3W-ZLUI1yWdcnGRs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1072841440254-v613cf5i00p211c6cum8mcd4v09mdn9b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

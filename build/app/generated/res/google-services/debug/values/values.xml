@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">1072841440254-v613cf5i00p211c6cum8mcd4v09mdn9b.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">1072841440254</string>
+    <string name="google_api_key" translatable="false">AIzaSyBsQhzPsNvXbcv9GJ_3W-ZLUI1yWdcnGRs</string>
+    <string name="google_app_id" translatable="false">1:1072841440254:android:aa194c444b86688a0b5eaf</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBsQhzPsNvXbcv9GJ_3W-ZLUI1yWdcnGRs</string>
+    <string name="google_storage_bucket" translatable="false">rush-mhr.appspot.com</string>
+    <string name="project_id" translatable="false">rush-mhr</string>
+</resources>
