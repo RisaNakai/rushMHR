@@ -15,7 +15,7 @@ class _CalendarState extends State<Calendar>{
   DateTime? _selectedDay;  //タップした日付に印がつく,?をつけるとnullになる
   Map<DateTime, List> _eventsList = {};
 
-  int _selectedIndex = 0;
+  //int _selectedIndex = 0;
 
   int getHashCode(DateTime key) {
     return key.day * 1000000 + key.month * 10000 + key.year;
@@ -59,11 +59,13 @@ class _CalendarState extends State<Calendar>{
     };
   }
 
+  /*
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
+*/
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +85,13 @@ class _CalendarState extends State<Calendar>{
       body: Column(
 
     children: <Widget>[
+
+      CustomPaint(
+        painter: SquarePainter(),
+        child: Container(
+          //height: size.height,
+        ),
+      ),
 
     TableCalendar(
         firstDay: DateTime.utc(2020, 1, 1),//一番最初の日付
@@ -130,4 +139,20 @@ class _CalendarState extends State<Calendar>{
 
 
   }
+
+}
+
+class SquarePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint = Paint();
+
+    paint.color = Color(0xFFF7F7EE);
+    var w = size.width;
+    var h = size.height;
+    var rect = Rect.fromLTWH(0, 0, w, h * 2);
+    canvas.drawRect(rect, paint);
+  }
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

@@ -17,6 +17,7 @@ dependencies:
   firebase_core: ^1.5.0
   cloud_firestore: ^2.5.0
   table_calendar: ^3.0.2
+  grouped_list: ^4.1.0
 
 
 dev_dependencies:

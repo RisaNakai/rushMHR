@@ -1,10 +1,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:sumple2/timetable.dart';
+import 'package:sumple2/todo.dart';
 import 'calendar.dart';
 
 void main() {
+
   runApp(MyApp());
 }
 
@@ -33,9 +35,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+
+print(_currentIndex);
     return Scaffold(
 
       appBar: AppBar(
@@ -43,14 +48,27 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor:Color(0xFF17706E),
       ),
 
-       body: Center(
-         child:(
-          Calendar()
+       body:// (_currentIndex == 0 )? ToDoScreen(): Timetable(),
+       Center(
+        child: (() {
+          if (_currentIndex == 0) {
+            return ToDoScreen();
+          } else if(_currentIndex == 1) {
+            return Timetable();
+          }else{
+            return Calendar();
+          }
+        })()
        ),
 
-       ),
 
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        onTap: (int index) {
+          setState((){
+            this._currentIndex = index;
+          });
+        },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.checklist,color:Colors.white),
@@ -66,9 +84,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
         backgroundColor: Color(0xFF17706E),
-       // currentIndex: _selectedIndex,
-        //onTap: _onItemTapped,
       ),
+
+
+
     );
   }
 }
