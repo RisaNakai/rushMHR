@@ -37,7 +37,7 @@ class ToDo_dummy_list{
         },
       );
     }
-    List dummySub = [];
+    //List dummySub = [];
 
     CollectionReference taskRef;
 
@@ -49,6 +49,7 @@ class ToDo_dummy_list{
       var submmisson = snapshot.get('submission');
       var subject_name = snapshot.get('subject_name');
       var task_name = snapshot.get('task_name');
+      var time = snapshot.get('time');
 
       //リストの作成
       var test = {
@@ -57,6 +58,7 @@ class ToDo_dummy_list{
         "task_name": task_name,
         "menbers": menbers,
         "submission": submmisson,
+        "time": time,
       };
       //リストに値を追加
       dummyList.add(test);

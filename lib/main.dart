@@ -1,13 +1,16 @@
-import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:firebase_core/firebase_core.dart';
 
-void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
+
+import 'package:sumple2/timetable.dart';
+import 'package:sumple2/todo.dart';
+import 'calendar.dart';
+
+void main() {
+
+
   runApp(MyApp());
 }
 
@@ -36,140 +39,59 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DateTime _focusedDay = DateTime.now();
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime? _selectedDay;  //タップした日付に印がつく
-  Map<DateTime, List> _eventsList = {};
-
-
-  int getHashCode(DateTime key) {
-    return key.day * 1000000 + key.month * 10000 + key.year;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedDay = _focusedDay;
-    //サンプルのイベントリスト
-    _eventsList = {
-      DateTime.now().subtract(Duration(days: 2)): ['Event A6', 'Event B6'],
-      DateTime.now(): ['生命の科学', 'あいうえお', 'Event C7', 'Event D7'],
-      DateTime.now().add(Duration(days: 1)): [
-        'Event A8',
-        'Event B8',
-        'Event C8',
-        'Event D8'
-      ],
-      DateTime.now().add(Duration(days: 3)):
-      Set.from(['Event A9', 'Event A9', 'Event B9']).toList(),
-      DateTime.now().add(Duration(days: 7)): [
-        'Event A10',
-        'Event B10',
-        'Event C10'
-      ],
-      DateTime.now().add(Duration(days: 11)): ['Event A11', 'Event B11'],
-      DateTime.now().add(Duration(days: 17)): [
-        'Event A12',
-        'Event B12',
-        'Event C12',
-        'Event D12',
-      ],
-      DateTime.now().add(Duration(days: 22)): ['Event A13', 'Event B13'],
-      DateTime.now().add(Duration(days: 26)): [
-        'Event A14',
-        'Event B14',
-        'Event C14'
-      ],
-    };
-  }
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
 
-    final _events = LinkedHashMap<DateTime, List>(
-      equals: isSameDay,
-      hashCode: getHashCode,
-    )..addAll(_eventsList);
-
-    List _getEventForDay(DateTime day) {
-      return _events[day] ?? [];
-    }
-
-
+print(_currentIndex);
     return Scaffold(
+
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Calendar',style:TextStyle(color:Color(0xFFF7F7EE))),
+          backgroundColor:Color(0xFF17706E),
       ),
+
+       body:// (_currentIndex == 0 )? ToDoScreen(): Timetable(),
+       Center(
+        child: (() {
+          if (_currentIndex == 0) {
+            return ToDoScreen();
+          } else if(_currentIndex == 1) {
+            return Timetable();
+          }else{
+            return Calendar();
+          }
+        })()
+       ),
+
 
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        onTap: (int index) {
+          setState((){
+            this._currentIndex = index;
+          });
+        },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.checklist),
+            icon: Icon(Icons.checklist,color:Colors.white),
             label: 'ToDo',
-            backgroundColor: Colors.teal,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.access_time_outlined),
+            icon: Icon(Icons.access_time_outlined,color:Colors.white),
             label: 'Timetable',
-            backgroundColor: Colors.teal,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.today),
+            icon: Icon(Icons.today,color:Colors.white),
             label: 'Calender',
-            backgroundColor: Colors.teal,
           ),
         ],
+        backgroundColor: Color(0xFF17706E),
       ),
 
-      body: Column(
-        children: <Widget>[
-
-          TableCalendar(
-            firstDay: DateTime.utc(2020, 1, 1),//一番最初の日付
-            lastDay: DateTime.utc(2030, 12, 31),//一番最後の日付
-            focusedDay: _focusedDay,//今日の日付
-            calendarFormat: _calendarFormat,
-
-            onFormatChanged: (format) {
-              if (_calendarFormat != format) {
-                setState(() {
-                  _calendarFormat = format;
-                });
-              }
-            },
 
 
-            eventLoader: _getEventForDay,
-            selectedDayPredicate: (day) {      //タップした日付に印がつく
-              return isSameDay(_selectedDay, day);
-            },
-            onDaySelected: (selectedDay, focusedDay) {
-              if (!isSameDay(_selectedDay, selectedDay)) {
-                setState(() {
-                  _selectedDay = selectedDay;
-                  _focusedDay = focusedDay;
-                });
-                _getEventForDay(selectedDay);
-              }
-            },
-
-
-
-          ),
-          Text("$_selectedDay"),
-          ListView(
-            shrinkWrap: true,
-            children: _getEventForDay(_selectedDay!)
-                .map((event) => ListTile(
-              title: Text(event.toString()),
-            ))
-                .toList(),
-          ),
-
-        ],
-      ),
     );
   }
 }
-
-
