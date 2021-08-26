@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
+import 'todo_dummy_list.dart';
 //import 'package:grouplistview/main.dart';
 
+ToDo_dummy_list dummy_list = ToDo_dummy_list();
+List _dataDummy = [];
+/*
 List _dataDummy = [
   {
     "albumId": "23:59",
@@ -76,6 +80,9 @@ List _dataDummy = [
   },
 ];
 
+ */
+
+
 class ToDoScreen extends StatefulWidget {
   // This widget is the root of your application.
   @override
@@ -107,7 +114,12 @@ class _GroupListViewPageState extends State<GroupListViewPage> {
   var _titles = ['Contacts', 'Map', 'Chat'];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
+    //firebaseからのデータをlistにまとめる
+    //_dataDummyにデータを入れる
+    dummy_list.createDummyList();
+    _dataDummy = dummy_list.getDummyList();
+
     return Scaffold(
       /*
          appBar: AppBar(
@@ -154,7 +166,8 @@ class _GroupListViewPageState extends State<GroupListViewPage> {
 
     body: GroupedListView<dynamic, String>(
     elements: _dataDummy,
-    groupBy: (element) => element['group'],
+    //groupBy: (element) => element['group'],
+      groupBy: (element) => element['subject_name'],
     groupSeparatorBuilder: (String groupByValue) => Padding(
     //教科の部分
     padding: EdgeInsets.all(10),
@@ -253,7 +266,8 @@ class _GroupListViewPageState extends State<GroupListViewPage> {
     child: Row(
     children: [
     Text(
-    '${element['id']}',
+    //'${element['id']}',
+    '${element['submission']}',
     style: TextStyle(
     fontSize: 18,
     ),
@@ -266,7 +280,8 @@ class _GroupListViewPageState extends State<GroupListViewPage> {
     ),
     ),
     Text(
-    '${element['id']}',
+    //'${element['id']}',
+    '${element['menbers']}',
     style: TextStyle(
     fontSize: 18,
     ),
@@ -296,7 +311,8 @@ class _GroupListViewPageState extends State<GroupListViewPage> {
     Container(
     margin: EdgeInsets.only(left: 10),
     child: Text(
-    element['title'],
+    //element['title'],
+    element['task_name'],
     style: TextStyle(
     fontSize: 17, color: Colors.black),
     ),
@@ -317,7 +333,8 @@ class _GroupListViewPageState extends State<GroupListViewPage> {
             Container(
               margin: EdgeInsets.only(left: 10),
               child: Text(
-                '${element['data']}',
+                //'${element['data']}',
+                '${element['date']}',
                 style: TextStyle(
                     fontSize: 17, color: Colors.red),
               ),
@@ -338,7 +355,8 @@ class _GroupListViewPageState extends State<GroupListViewPage> {
             Container(
               margin: EdgeInsets.only(left: 10),
               child: Text(
-                '${element['albumId']}',
+                //'${element['albumId']}',
+                '${element['time']}',
                 style: TextStyle(
                     fontSize: 17, color: Colors.red),
               ),
@@ -356,7 +374,8 @@ class _GroupListViewPageState extends State<GroupListViewPage> {
     );
     },
       itemComparator: (item1, item2) =>
-          item1['title'].compareTo(item2['title']),
+          //item1['title'].compareTo(item2['title']),
+      item1['task_name'].compareTo(item2['task_name']),
       // optional
       useStickyGroupSeparators: false,
       // optional
