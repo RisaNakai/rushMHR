@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class ToDo_dummy_list{
   List dummyList = [];
@@ -42,6 +43,9 @@ class ToDo_dummy_list{
       //List dummySub = [];
 
       CollectionReference taskRef;
+      var _dateFormatter = new DateFormat("y/M/d", "ja_JP");
+      DateTime dateTime;
+      var now = DateTime.now();
 
       for (var i = 0; i < userSub.length; i++) {
         taskRef = firestore.collection(subjectList[i]);
@@ -52,6 +56,14 @@ class ToDo_dummy_list{
         var subject_name = snapshot.get('subject_name');
         var task_name = snapshot.get('task_name');
         var time = snapshot.get('time');
+        dateTime = _dateFormatter.parse(date);
+        if(dateTime.isAtSameMomentAs(now)){
+          var deadline = '本日締め切り';
+        }else{
+          var deadline = (dateTime
+              .difference(now)
+              .inDays);
+        }
 
         //リストの作成
         var test = {
