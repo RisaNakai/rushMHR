@@ -1,4 +1,4 @@
-#Wed Aug 25 11:12:59 JST 2021
+#Thu Aug 26 23:06:30 JST 2021
 base.2=C\:\\Users\\s1957154\\Desktop\\rushMHR\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes3.dex
 path.2=classes3.dex
 base.1=C\:\\Users\\s1957154\\Desktop\\rushMHR\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
